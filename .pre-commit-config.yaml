@@ -1,0 +1,29 @@
+# A configuration file for the pre-commit framework.
+# This uses the Ruff tool to handle both linting/sorting and formatting for Python files.
+default_stages: ["pre-commit", "pre-push"]
+default_language_Version:
+  python: python3.12
+repos:
+  # Standard Hooks for general file maintenance
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: detect-private-key
+      - id: check-ast
+      - id: mixed-line-ending
+
+  # Ruff: Single tool for Formatting, Linting, and Import Sorting
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.7  # Use a recent stable version
+    hooks:
+      # 1. Ruff (Linting & Import Sorting)
+      - id: ruff
+        args: ["--fix" ,"--exit-non-zero-on-fix"]
+
+      # 2. Ruff Format (Code Formatting - replaces Black)
+      - id: ruff-format
+        args: []
