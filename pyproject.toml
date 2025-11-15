@@ -1,0 +1,33 @@
+[project]
+name = "cogesak-lakehouse-mapper"
+version = "0.1.0"
+description = "A simple 3-layer architecture project"
+authors = [
+    { name = "Esakki" }
+]
+requires-python = ">=3.12"
+
+
+dependencies = [
+    "delta-spark==4.0.0",
+    "pyspark==4.0.0",
+    "pyyaml>=6.0.2",
+    "requests>=2.32.3",
+
+]
+
+[tools.ruff]
+exclude = ["tests"]
+line-length = 122
+target-version="py312"
+
+
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "W291",
+    "F401"
+]
