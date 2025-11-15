@@ -1,0 +1,13 @@
+
+
+First we need to design the Db utils class which needs to connect with the postgres database and get the results and write the results using the spark.
+
+
+Download the necessary jars
+.config("spark.jars", "/Users/esak/.ivy2/jars/aws-java-sdk-bundle-1.12.593.jar,
+                        /Users/esak/.ivy2/jars/hadoop-aws-3.3.4.jar,
+                        /Users/esak/.ivy2/jars/io.delta_delta-spark_2.12-3.3.0.jar"
+         )
+wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.593/aws-java-sdk-bundle-1.12.593.jar
+wget https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.4/hadoop-aws-3.3.4.jar
+wget https://repo1.maven.org/maven2/org/postgresql/postgresql/42.7.8/postgresql-42.7.8.jar

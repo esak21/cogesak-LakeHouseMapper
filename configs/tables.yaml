@@ -1,0 +1,101 @@
+dim_customers:
+  staging_table:
+    schema_id:
+      dev: ""
+    catalog_id:
+      dev: ""
+      qa: ""
+    paths:
+      dev: ""
+    business_current_table:
+      path:
+        dev: ""
+        qa : ""
+    point_in_time: true
+    point_in_time_table:
+      path:
+        dev: ""
+        qa : ""
+    primary_keys:
+      - customer_key
+    full_load_table: false
+    partition_key: row_number
+    num_partition:
+
+dim_store:
+  staging_table:
+    schema_id:
+      dev: ""
+      qa : ""
+    catalog_id:
+      dev: ""
+      qa : ""
+    paths:
+      dev: ""
+      qa : ""
+    business_current_table:
+      path:
+        dev: ""
+        qa : ""
+    point_in_time: true
+    point_in_time_table:
+      path:
+        dev: ""
+        qa : ""
+    primary_keys:
+      - store_key
+    full_load_table: true
+    partition_key: row_number
+    num_partition:
+
+dim_product:
+  staging_table:
+    schema_id:
+      dev: ""
+      qa : ""
+    catalog_id:
+      dev: ""
+      qa : ""
+    paths:
+      dev: ""
+      qa : ""
+    business_current_table:
+      path:
+        dev: ""
+        qa : ""
+    point_in_time: true
+    point_in_time_table:
+      path:
+        dev: ""
+        qa : ""
+    primary_keys:
+      - product_key
+    full_load_table: true
+    partition_key: row_number
+    num_partition:
+
+fact_sales:
+  staging_table:
+    schema_id:
+      dev: ""
+      qa : ""
+    catalog_id:
+      dev: ""
+      qa : ""
+    paths:
+      dev: ""
+      qa : ""
+    business_current_table:
+      path:
+        dev: ""
+        qa : ""
+    point_in_time: true
+    point_in_time_table:
+      path:
+        dev: ""
+        qa : ""
+    primary_keys:
+      - sales_key
+    full_load_table: false
+    partition_key: row_number
+    num_partition:
