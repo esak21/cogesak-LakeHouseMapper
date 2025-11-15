@@ -1,0 +1,7 @@
+db:
+  database_schema: public
+  database_endpoint: localhost
+  database_port: 5432
+  database_name: analytics_db
+  database_username: user
+  database_password: mysecretpassword
