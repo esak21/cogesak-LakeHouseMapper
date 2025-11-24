@@ -1,16 +1,18 @@
-dim_customers:
-  staging_table:
+dim_customer:
     schema_id:
-      dev: ""
+      dev: dim_customer_schema
+      qa: dim_customer_schema
     catalog_id:
       dev: ""
       qa: ""
-    paths:
-      dev: ""
+    staging_table:
+      path:
+        dev: s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
+        qa: s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
     business_current_table:
       path:
-        dev: ""
-        qa : ""
+        dev: s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
+        qa : s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
     point_in_time: true
     point_in_time_table:
       path:
@@ -18,25 +20,28 @@ dim_customers:
         qa : ""
     primary_keys:
       - customer_key
-    full_load_table: false
+    full_load_table: True
     partition_key: row_number
-    num_partition:
+    num_partition: 2
+    update_timestamp_col : last_updt_col
+    audit_seq_id: audit_id
 
 dim_store:
-  staging_table:
+    skip: True
     schema_id:
-      dev: ""
-      qa : ""
+      dev: dim_store_schema
+      qa : dim_store_schema
     catalog_id:
       dev: ""
       qa : ""
-    paths:
-      dev: ""
-      qa : ""
-    business_current_table:
+    staging_table:
       path:
         dev: ""
-        qa : ""
+        qa : s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
+    business_current_table:
+      path:
+        dev: s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
+        qa : s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
     point_in_time: true
     point_in_time_table:
       path:
@@ -44,25 +49,26 @@ dim_store:
         qa : ""
     primary_keys:
       - store_key
-    full_load_table: true
+    full_load_table: false
     partition_key: row_number
-    num_partition:
+    num_partition: 1
+    update_timestamp_col : last_updt_col
 
 dim_product:
-  staging_table:
     schema_id:
-      dev: ""
-      qa : ""
+      dev: dim_product_schema
+      qa : dim_product_schema
     catalog_id:
       dev: ""
       qa : ""
-    paths:
-      dev: ""
-      qa : ""
+    staging_table:
+      path:
+        dev: s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
+        qa : s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
     business_current_table:
       path:
-        dev: ""
-        qa : ""
+        dev: s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
+        qa : s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
     point_in_time: true
     point_in_time_table:
       path:
@@ -70,25 +76,28 @@ dim_product:
         qa : ""
     primary_keys:
       - product_key
-    full_load_table: true
+    full_load_table: false
     partition_key: row_number
-    num_partition:
+    num_partition: 1
+    update_timestamp_col : last_updt_col
+    audit_seq_id : audit_id
 
 fact_sales:
-  staging_table:
+    skip : true
     schema_id:
-      dev: ""
-      qa : ""
+      dev: fact_sales_schema
+      qa : fact_sales_schema
     catalog_id:
       dev: ""
       qa : ""
-    paths:
-      dev: ""
-      qa : ""
+    staging_table:
+      path:
+        dev: s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
+        qa : s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
     business_current_table:
       path:
-        dev: ""
-        qa : ""
+        dev: s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
+        qa : s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
     point_in_time: true
     point_in_time_table:
       path:
@@ -98,4 +107,5 @@ fact_sales:
       - sales_key
     full_load_table: false
     partition_key: row_number
-    num_partition:
+    num_partition: 1
+    update_timestamp_col : sales_key

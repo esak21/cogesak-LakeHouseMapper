@@ -57,21 +57,6 @@ services:
       - "9001:9001"
     command: server /data --console-address ":9001"
 
-  # 4. MinIO Bucket Creator (Service to initialize S3 buckets)
-  createbuckets:
-    image: minio/mc
-    container_name: minio-bucket-creator
-    depends_on:
-      - minio
-    entrypoint: >
-      /bin/sh -c "
-      # Wait for MinIO to start
-      /usr/bin/mc config host add localminio http://minio:9000 minioadmin minioadmin;
-      # Create initial buckets for the data lake layers
-      /usr/bin/mc mb localminio/bronze-layer;
-      /usr/bin/mc mb localminio/silver-layer;
-      exit 0;
-      "
 
 volumes:
   postgres_data:

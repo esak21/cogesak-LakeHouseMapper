@@ -1,4 +1,5 @@
 import copy
+import re
 
 from pyspark.sql import SparkSession
 
@@ -14,6 +15,7 @@ class DBUtils:
         self.env = env
         self.connection_properties = self.get_connection_properties()
         self.jdbc_url = self.get_jdbc_url()
+        self.id_pattern = re.compile(r"[A-Za-z0-9-_]+")
 
     def get_connection_properties(self):
         db_env_config = self.config["db"]
@@ -88,6 +90,12 @@ class DBUtils:
         )
 
         return df
+
+    def sanitize_parameters(self, parameter_list: list):
+        for param in parameter_list:
+            if not re.fullmatch(self.id_pattern, param):
+                raise ValueError(f"Parameter {param} is not a valid parameter")
+        return True
 
 
 if __name__ == "__main__":
