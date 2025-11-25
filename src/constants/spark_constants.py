@@ -1,5 +1,6 @@
 from pyspark.sql.types import *
 
+DELETE_FLAG = "is_deleted"
 DATA_TYPE_TO_STRUCT_TYPE_DICT = {
     "STRING": StringType(),
     "INT": IntegerType(),

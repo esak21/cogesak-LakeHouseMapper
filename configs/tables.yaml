@@ -1,11 +1,9 @@
 dim_customer:
-    schema_id:
-      dev: dim_customer_schema
-      qa: dim_customer_schema
     catalog_id:
       dev: ""
       qa: ""
     staging_table:
+      schema: dim_customer_schema
       path:
         dev: s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
         qa: s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
@@ -13,6 +11,7 @@ dim_customer:
       path:
         dev: s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
         qa : s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
+      schema: bc_dim_customer_schema
     point_in_time: true
     point_in_time_table:
       path:
@@ -28,17 +27,16 @@ dim_customer:
 
 dim_store:
     skip: True
-    schema_id:
-      dev: dim_store_schema
-      qa : dim_store_schema
     catalog_id:
       dev: ""
       qa : ""
     staging_table:
+      schema: dim_store_schema
       path:
         dev: ""
         qa : s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
     business_current_table:
+      schema: bc_dim_store_schema
       path:
         dev: s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
         qa : s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
@@ -55,17 +53,16 @@ dim_store:
     update_timestamp_col : last_updt_col
 
 dim_product:
-    schema_id:
-      dev: dim_product_schema
-      qa : dim_product_schema
     catalog_id:
       dev: ""
       qa : ""
     staging_table:
+      schema: dim_product_schema
       path:
         dev: s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
         qa : s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
     business_current_table:
+      schema: bc_dim_product_schema
       path:
         dev: s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
         qa : s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
@@ -84,17 +81,16 @@ dim_product:
 
 fact_sales:
     skip : true
-    schema_id:
-      dev: fact_sales_schema
-      qa : fact_sales_schema
     catalog_id:
       dev: ""
       qa : ""
     staging_table:
+      schema: fact_sales_schema
       path:
         dev: s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
         qa : s3a://cogesak-etl-target/cogesak/datasets/lake/staging/src/
     business_current_table:
+      schema: bc_fact_sales_schema
       path:
         dev: s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/
         qa : s3a://cogesak-etl-target/cogesak/datasets/lake/prod/src/

@@ -147,7 +147,7 @@ def get_staging_population(
         )
         return (
             f"select * from products.{table_name} "
-            f"where {update_timestamp_col} BETWEEN '{max_time_stamp}'::timestamp + interval '1 days' and '{current_timestamp}'::timestamp "
+            f"where {update_timestamp_col} BETWEEN '{max_time_stamp}'::timestamp - interval '1 days' and '{current_timestamp}'::timestamp "
         )
 
 

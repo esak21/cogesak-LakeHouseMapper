@@ -34,6 +34,25 @@ class DBUtils:
         POSTGRES_DB = self.config["db"].get("database_name")
         return f"jdbc:postgresql://{DATABASE_ENDPOINT}:{DATABASE_PORT}/{POSTGRES_DB}"
 
+    def write_to_database(
+        self, spark_session: SparkSession, table_name: str, query: str
+    ) -> bool:
+        try:
+            connection = (
+                spark_session._sc._gateway.jvm.java.sql.DriverManager.getConnection(
+                    self.jdbc_url,
+                    self.connection_properties["user"],
+                    self.connection_properties["password"],
+                )
+            )
+            statementt = connection.createStatement()
+            statementt.execute(query)
+            connection.close()
+        except Exception as e:
+            print(f"Error writing to database: {e}")
+            return False
+        return True
+
     def read_from_database(
         self,
         spark_session: SparkSession,
