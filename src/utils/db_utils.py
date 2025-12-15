@@ -1,4 +1,5 @@
 import copy
+import re
 
 from pyspark.sql import SparkSession
 
@@ -14,6 +15,7 @@ class DBUtils:
         self.env = env
         self.connection_properties = self.get_connection_properties()
         self.jdbc_url = self.get_jdbc_url()
+        self.id_pattern = re.compile(r"[A-Za-z0-9-_]+")
 
     def get_connection_properties(self):
         db_env_config = self.config["db"]
@@ -31,6 +33,25 @@ class DBUtils:
         DATABASE_PORT = self.config["db"].get("database_port")
         POSTGRES_DB = self.config["db"].get("database_name")
         return f"jdbc:postgresql://{DATABASE_ENDPOINT}:{DATABASE_PORT}/{POSTGRES_DB}"
+
+    def write_to_database(
+        self, spark_session: SparkSession, table_name: str, query: str
+    ) -> bool:
+        try:
+            connection = (
+                spark_session._sc._gateway.jvm.java.sql.DriverManager.getConnection(
+                    self.jdbc_url,
+                    self.connection_properties["user"],
+                    self.connection_properties["password"],
+                )
+            )
+            statementt = connection.createStatement()
+            statementt.execute(query)
+            connection.close()
+        except Exception as e:
+            print(f"Error writing to database: {e}")
+            return False
+        return True
 
     def read_from_database(
         self,
@@ -88,6 +109,12 @@ class DBUtils:
         )
 
         return df
+
+    def sanitize_parameters(self, parameter_list: list):
+        for param in parameter_list:
+            if not re.fullmatch(self.id_pattern, param):
+                raise ValueError(f"Parameter {param} is not a valid parameter")
+        return True
 
 
 if __name__ == "__main__":
